@@ -76,7 +76,17 @@ namespace EmployeeApp
         public void GiveBonus(float amount)
         {
             //PENDING: ADD SWITCH STATEMENT TO HANDLE DIFFERENT PAY TYPES - page 215 on pdf
-            _currPay += amount;
+            Pay = this switch
+            {
+                { PayType: EmployeePayTypeEnum.Commission }
+                => Pay += .10F * amount,
+                { PayType: EmployeePayTypeEnum.Hourly }
+                => Pay += 40F * amount / 2080F,
+                { PayType: EmployeePayTypeEnum.Salaried }
+                => Pay += amount,
+               _ => Pay += 0
+                
+            };
         }
         public void DisplayStats()
         {
