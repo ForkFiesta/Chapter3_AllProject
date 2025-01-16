@@ -15,9 +15,17 @@ namespace EmployeeApp
         private int _empAge;
         private string _empSSN = string.Empty;
         private EmployeePayTypeEnum _payType;
+        private DateTime _hireDate;
+
 
         // Properties
         // 
+
+        public DateTime HireDate
+        {
+            get { return _hireDate; }
+            set { _hireDate = value; }
+        }
         public EmployeePayTypeEnum PayType
         {
             get { return _payType; }
@@ -78,11 +86,11 @@ namespace EmployeeApp
             //PENDING: ADD SWITCH STATEMENT TO HANDLE DIFFERENT PAY TYPES - page 215 on pdf
             Pay = this switch
             {
-                { PayType: EmployeePayTypeEnum.Commission }
+                {Age: >= 18, PayType: EmployeePayTypeEnum.Commission, HireDate.Year: > 2020 }
                 => Pay += .10F * amount,
-                { PayType: EmployeePayTypeEnum.Hourly }
+                {Age: >= 18, PayType: EmployeePayTypeEnum.Hourly, HireDate.Year: > 2020 }
                 => Pay += 40F * amount / 2080F,
-                { PayType: EmployeePayTypeEnum.Salaried }
+                {Age: >= 18, PayType: EmployeePayTypeEnum.Salaried, HireDate.Year: > 2020}
                 => Pay += amount,
                _ => Pay += 0
                 
